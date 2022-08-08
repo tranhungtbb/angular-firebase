@@ -18,12 +18,17 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_FIREBASE_46143 }}'
           channelId: live
           projectId: angular-firebase-46143
-  build_and_deploy_function:
+  job:
     runs-on: ubuntu-latest
-    steps:
+      steps:
       - uses: actions/checkout@v2
-      - run: cd functions / && npm install
-      - uses: w9jds/firebase-action@master
+      - name: Install npm packages
+        run: |
+          cd functions
+          npm install
+      - name:  Deploy to Firebase
+        uses: w9jds/firebase-action@master
         with:
-          args: deploy --only functions
-          FIREBASE_TOKEN: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_FIREBASE_46143 }}'
+            args: deploy --only functions
+        env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_FIREBASE_46143 }}
