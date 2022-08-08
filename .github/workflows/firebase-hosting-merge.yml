@@ -22,11 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd functions && npm install
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - run: cd functions / && npm install
+      - uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_FIREBASE_46143 }}'
-          channelId: live
-          projectId: angular-firebase-46143
+          FIREBASE_TOKEN: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ANGULAR_FIREBASE_46143 }}'
